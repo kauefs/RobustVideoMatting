@@ -32,7 +32,7 @@ class VideoWriter:
     def __init__(self, path, frame_rate, bit_rate=1000000):
         self.container = av.open(path, mode='w')
         # Ensure frame_rate is a float, then convert to string for the 'rate' argument
-        stream_rate = str(float(frame_rate))
+        stream_rate = str(round(float(frame_rate))) # Convert av.Rational to float, then round to nearest int, then to str
         self.stream = self.container.add_stream('h264', rate=stream_rate)
         self.stream.pix_fmt = 'yuv420p'
         self.stream.bit_rate = bit_rate
